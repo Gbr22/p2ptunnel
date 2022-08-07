@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "@chainsafe/libp2p-noise": "^7.0.3",
+    "@libp2p/mplex": "^4.0.3",
+    "@libp2p/peer-id-factory": "^1.0.17",
+    "@libp2p/tcp": "^3.0.2",
+    "@libp2p/websockets": "^3.0.1",
+    "@nodeutils/defaults-deep": "^1.1.0",
+    "it-pipe": "^2.0.4",
+    "it-pushable": "^3.1.0",
+    "libp2p": "^0.37.3",
+    "libp2p-bootstrap": "^0.14.0",
+    "libp2p-kad-dht": "^0.28.6",
+    "libp2p-webrtc-star": "^0.25.0",
+    "peer-id": "^0.16.0",
+    "peer-info": "^0.17.5"
+  },
+  "type": "module"
+}
