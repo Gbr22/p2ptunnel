@@ -4,6 +4,21 @@ import { Multiaddr } from '@multiformats/multiaddr'
 import { createLibp2p } from './libp2p.js'
 import { createFromJSON } from '@libp2p/peer-id-factory'
 import Protocol from './protocol.js';
+import { peerIdFromString } from '@libp2p/peer-id'
+
+async function connect(node, peerIdString){
+    let peerId = peerIdFromString(peerIdString);
+    console.log("Connecting to: ",peerId.toString());
+    let store = await node.peerStore.addressBook.get(peerId);
+    let address = store[0].multiaddr;
+    console.log("Ma: ",address.toString());
+
+    const connection = await node.dial(address);
+    //console.log("Connected to: ",connection.remoteAddr.getPeerId());
+    console.log("Connected");
+    const { stream, protocol } = await connection.newStream(Protocol.id);
+    console.log("new stream with protocol: ",protocol);
+}
 
 async function run () {
     const idDialer = await createFromJSON({
@@ -21,8 +36,19 @@ async function run () {
         }
     })
 
+    
+
     // Start the libp2p host
     await node.start()
+
+    let check = false;
+
+    node.addEventListener('peer:discovery', (evt) => {
+        if (evt.detail.id.toString() == listenerId && !check){
+            connect(node,evt.detail.id.toString());
+            check = true;
+        }
+    })
 
     // Output this node's address
     console.log('Dialer ready, listening on:')
@@ -31,11 +57,8 @@ async function run () {
     })
 
     // Dial to the remote peer (the "listener")
-    const listenerMa = new Multiaddr(`/ip4/127.0.0.1/tcp/10333/p2p/${listenerId}`)
-    const connection = await node.dial(listenerMa);
-    console.log("Connected to: ",connection.remoteAddr.getPeerId());
-    const { stream, protocol } = await connection.newStream(Protocol.id);
-    console.log("new stream with protocol: ",protocol);
+
+   
 }
 
 run()

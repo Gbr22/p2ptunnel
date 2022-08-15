@@ -1,7 +1,11 @@
 {
   "dependencies": {
     "@chainsafe/libp2p-noise": "^7.0.3",
+    "@libp2p/bootstrap": "^2.0.0",
+    "@libp2p/kad-dht": "^3.0.4",
+    "@libp2p/mdns": "^3.0.0",
     "@libp2p/mplex": "^4.0.3",
+    "@libp2p/peer-id": "^1.1.15",
     "@libp2p/peer-id-factory": "^1.0.17",
     "@libp2p/tcp": "^3.0.2",
     "@libp2p/websockets": "^3.0.1",

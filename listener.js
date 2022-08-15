@@ -19,10 +19,14 @@ async function run () {
     }
   })
 
+  node.addEventListener('peer:discovery', (evt) => {
+    //console.log(`Found peer ${evt.detail.id.toString()}`)
+  })
+
   // Log a message when a remote peer connects to us
   node.connectionManager.addEventListener('peer:connect', (evt) => {
     const connection = evt.detail
-    console.log('Connected to: ', connection.remotePeer.toString())
+    //console.log('Connected to: ', connection.remotePeer.toString())
   })
 
   // Handle messages for the protocol
